@@ -28,16 +28,16 @@ class DeviceServer:
         # 文本转语音
         if key == 'tts':
             value = urllib.parse.quote(template_message(value))
-        elif key == 'url':
+        elif key == 'home_url':
             value = urllib.parse.quote(value)
         res = requests.get(self.api_url + '/set?key=' + key + '&value=' + str(value))
         print(res.json())
 
     # 连接MQTT
     def connect(self):
-        self.set_value('mqtt', self.mqtt_host)
+        self.set_value('mqtt_host', self.mqtt_host)
         self.set_value('ha_api', self.ha_api)
-        self.set_value('url', self.web_url)
+        self.set_value('home_url', self.web_url)
 
 class HassView(HomeAssistantView):
 
