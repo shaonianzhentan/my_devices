@@ -1,0 +1,12 @@
+{
+    "domain": "my_devices",
+    "name": "\u6211\u7684\u8BBE\u5907",
+    "version": "1.0",
+    "config_flow": false,
+    "documentation": "https://github.com/shaonianzhentan/my_devices",
+    "requirements": [],
+    "dependencies": [],
+    "codeowners": [
+        "@shaonianzhentan"
+    ]
+}
