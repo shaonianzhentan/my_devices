@@ -3,7 +3,7 @@ import socket, threading, json, requests, urllib, logging, time
 _LOGGER = logging.getLogger(__name__)
 
 from .shaonianzhentan import DeviceServer, HassView
-from .const import DOMAIN
+from .const import DOMAIN, VERSION
 
 def setup(hass, config):
     cfg = config[DOMAIN]
@@ -14,7 +14,8 @@ def setup(hass, config):
     for item in devices:
         host = item['host']
         url = item.get('url', '').replace('TIMESTAMP', str(int(time.time())))
-        hass.data[f"{DOMAIN}{host}"] = DeviceServer(hass, host, url, mqtt['host'])
+        domain_key = f"{DOMAIN}{host}"
+        hass.data[domain_key] = DeviceServer(hass, host, url, mqtt['host'])
 
     # 设置数据
     def setting_data(call):
@@ -56,8 +57,12 @@ def setup(hass, config):
                 # 设置启动页面
                 ip = data.get('ip', '')
                 if ip != '':
-                    dev = hass.data[f"{DOMAIN}{ip}"]
-                    dev.connect()
+                    domain_key = f"{DOMAIN}{ip}"
+                    print(domain_key)
+                    if domain_key in hass.data:
+                        dev = hass.data[domain_key]
+                        print(dev)
+                        dev.connect()
             except Exception as ex:
                 print(ex)
 

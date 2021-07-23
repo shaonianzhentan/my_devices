@@ -2,18 +2,7 @@ import uuid, requests, urllib
 from homeassistant.helpers import template
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.helpers.network import get_url
-from .const import VERSION, DOMAIN, DOMAIN_API
-
-# 获取本机MAC地址
-def get_mac_address_key(): 
-    mac=uuid.UUID(int = uuid.getnode()).hex[-12:] 
-    return "".join([mac[e:e+2] for e in range(0,11,2)])
-
-# 解析模板
-def template_message(_message):
-    tpl = template.Template(_message, HASS)
-    _message = tpl.async_render(None)
-    return _message
+from .const import DOMAIN, DOMAIN_API
 
 class DeviceServer:
 
@@ -24,20 +13,27 @@ class DeviceServer:
         self.mqtt_host = mqtt_host
         self.ha_api = get_url(hass).strip('/') + DOMAIN_API
 
-    def set_value(key, value):
+    def set_value(self, key, value):
         # 文本转语音
         if key == 'tts':
-            value = urllib.parse.quote(template_message(value))
+            value = urllib.parse.quote(self.template_message(value))
         elif key == 'home_url':
             value = urllib.parse.quote(value)
-        res = requests.get(self.api_url + '/set?key=' + key + '&value=' + str(value))
+        res = requests.get(self.api_url + '/?key=' + key + '&value=' + str(value))
         print(res.json())
+
+    # 解析模板
+    def template_message(self, _message):
+        tpl = template.Template(_message, self.hass)
+        _message = tpl.async_render(None)
+        return _message
 
     # 连接MQTT
     def connect(self):
         self.set_value('mqtt_host', self.mqtt_host)
         self.set_value('ha_api', self.ha_api)
         self.set_value('home_url', self.web_url)
+        print('连接MQTT')
 
 class HassView(HomeAssistantView):
 
