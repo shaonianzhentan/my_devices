@@ -1,6 +1,18 @@
 # my_devices
 在HA里控制我的设备
 
+```yaml
+
+my_devices:
+  mqtt:
+    host: 192.168.1.119
+  devices:
+    - host: 192.168.1.101
+      url: https://ha.jiluxinqing.com/
+    - host: 192.168.1.105
+      url: https://ha.jiluxinqing.com/
+
+```
 
 # 使用HomeAssistant控制我的电脑
 
