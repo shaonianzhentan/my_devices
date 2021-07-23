@@ -1,9 +1,9 @@
 setting:
-  description: 小米平板设置
+  description: 设备设置
   fields:
     ip:
       name: IP地址 
-      description: 设备IP地址
+      description: 设备IP
       example: '192.168.1.111'
       selector:
         text:
@@ -17,6 +17,12 @@ setting:
           max: 255
           step: 1
           mode: slider
+    tts:
+      name: 文本转语音
+      description: 文本转语音
+      example: '这是一条TTS文本转语音消息'
+      selector:
+        text:
     system_volume:
       name: 系统音量
       description: 系统音量
@@ -27,15 +33,15 @@ setting:
           max: 7
           step: 1
           mode: slider
-    tts:
-      name: 文本转语音
-      description: 文本转语音
-      example: '这是一条TTS文本转语音消息'
-      selector:
-        text:
-    lock:
-      name: 熄屏
+    lockscreen:
+      name: 锁定屏幕
       description: 屏幕点亮或熄屏
+      example: True
+      selector:
+        boolean:
+    speech_recognition:
+      name: 语音识别
+      description: 语音识别
       example: True
       selector:
         boolean:

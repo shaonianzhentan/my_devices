@@ -19,9 +19,16 @@ def setup(hass, config):
     # 设置数据
     def setting_data(call):
         data = call.data
-        key = f"{DOMAIN}{data.get('ip', '')}"
-        if key in hass.data:
-            dev = hass.data[key]
+        domain_key = f"{DOMAIN}{data.get('ip', '')}"
+        if domain_key in hass.data:
+            dev = hass.data[domain_key]
+
+            for key in data:
+                if key == 'ip':
+                    continue
+                value = data.get(key)
+                if value is not None:
+                    dev.set_value(key, value)
 
     # 订阅服务
     hass.services.async_register(DOMAIN, 'setting', setting_data)

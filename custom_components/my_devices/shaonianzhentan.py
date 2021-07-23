@@ -25,6 +25,11 @@ class DeviceServer:
         self.ha_api = get_url(hass).strip('/') + DOMAIN_API
 
     def set_value(key, value):
+        # 文本转语音
+        if key == 'tts':
+            value = urllib.parse.quote(template_message(value))
+        elif key == 'url':
+            value = urllib.parse.quote(value)
         res = requests.get(self.api_url + '/set?key=' + key + '&value=' + str(value))
         print(res.json())
 
@@ -32,31 +37,7 @@ class DeviceServer:
     def connect(self):
         self.set_value('mqtt', self.mqtt_host)
         self.set_value('ha_api', self.ha_api)
-        self.home_url(self.web_url)
-
-    # 文本转语音
-    def tts(self, text):
-        self.set_value('tts', urllib.parse.quote(template_message(text)))
-
-    # 设置屏幕亮度
-    def brightness(self, value):
-        self.set_value('brightness', value)
-
-    # 锁定屏幕
-    def lockscreen(self, value):
-        self.set_value('lock', value)
-
-    # 打开语音识别
-    def speech_recognition(self):
-        self.set_value('speech_recognition', 1)
-
-    # 打开主链接
-    def home_url(self, web_url):
-        self.set_value('url', urllib.parse.quote(web_url))
-
-    # 设置系统音量
-    def system_volume(self, value):
-        self.set_value('system_volume', value)
+        self.set_value('url', self.web_url)
 
 class HassView(HomeAssistantView):
 
