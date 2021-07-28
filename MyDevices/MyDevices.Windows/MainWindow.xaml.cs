@@ -23,11 +23,29 @@ namespace MyDevices.Windows
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += MainWindow_Closing;
+            this.myNotifyIcon.TrayMouseDoubleClick += MyNotifyIcon_TrayMouseDoubleClick;
         }
 
-        public void DoubleClick()
+        private void MyNotifyIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
             this.Show();
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
+        void OpenWin_Click(object sender, RoutedEventArgs e)
+        {
+            this.Show();
+        }
+
+        void QuitWin_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

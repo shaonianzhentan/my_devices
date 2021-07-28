@@ -8,14 +8,18 @@
          xmlns:tb="http://www.hardcodet.net/taskbar"
         Title="我的设备" Height="450" Width="800">
     <Grid>
-
+    
         <tb:TaskbarIcon x:Name="myNotifyIcon"
                     Visibility="Visible"
                     ToolTipText="智能家居"
-                    IconSource="/favicon.ico"
-                    MenuActivation="LeftOrRightClick"
-                    PopupActivation="LeftOrDoubleClick"
-      />
+                    IconSource="/favicon.ico"      >
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="打开主界面" Click="OpenWin_Click" />
+                    <MenuItem Header="退出" Click="QuitWin_Click" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
     </Grid>
     
 </Window>
