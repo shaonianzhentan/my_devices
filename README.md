@@ -49,5 +49,8 @@ my_devices:
 # 使用HomeAssistant控制我的平板
 
 - [ ] 控制屏幕亮度
+- [ ] 控制系统音量
+- [ ] 获取光照传感器
+- [ ] TTS文本转语音
 
 # 使用HomeAssistant控制我的手机

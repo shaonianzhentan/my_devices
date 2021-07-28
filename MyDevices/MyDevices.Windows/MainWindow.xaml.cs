@@ -24,5 +24,10 @@ namespace MyDevices.Windows
         {
             InitializeComponent();
         }
+
+        public void DoubleClick()
+        {
+            this.Show();
+        }
     }
 }

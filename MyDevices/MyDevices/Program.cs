@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using YamlDotNet.Serialization;
 
 namespace MyDevices
 {
@@ -10,7 +11,10 @@ namespace MyDevices
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            StartHttpServer();            
+            StartHttpServer();
+
+            // Windows 语音识别
+            // KeyboardHelper.win_keypress(KeyboardHelper.vbKeyH);
         }
 
         static void StartHttpServer()
@@ -26,15 +30,7 @@ namespace MyDevices
             {
 
             };
-            action["tts"] = (value) =>
-            {
-
-            };
             action["ha_api"] = (value) =>
-            {
-
-            };
-            action["speech_recognition"] = (value) =>
             {
 
             };
@@ -72,6 +68,19 @@ namespace MyDevices
             action.Add(volumeSensorTopic["command"], (value) =>
             {
                 ha.Publish(volumeSensorTopic["state"], value);
+            });
+
+            // 相关功能
+            action.Add(ha.ip, (value) =>
+            {
+                var yamlReader = new System.IO.StringReader(value);
+                Deserializer yamlDeserializer = new Deserializer();
+                Dictionary<string, object> dict = yamlDeserializer.Deserialize<Dictionary<string, object>>(yamlReader);
+                // 设置TTS
+                if (dict.ContainsKey("tts"))
+                {
+                    string tts = dict["tts"].ToString();
+                }
             });
 
             ha.Connect(action, (args) =>
