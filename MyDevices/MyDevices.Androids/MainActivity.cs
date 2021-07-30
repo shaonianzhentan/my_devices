@@ -2,6 +2,7 @@
 using Android.Hardware;
 using Android.OS;
 using Android.Runtime;
+using Android.Webkit;
 using AndroidX.AppCompat.App;
 
 namespace MyDevices.Androids
@@ -18,7 +19,18 @@ namespace MyDevices.Androids
             SetContentView(Resource.Layout.activity_main);
 
             mq = new DeviceMqtt(this);
+
+            WebView webView = this.FindViewById<WebView>(Resource.Id.wv);
+            webView.Settings.AllowFileAccess = true;
+            webView.Settings.AllowContentAccess = true;
+            webView.Settings.AllowFileAccessFromFileURLs = true;
+            webView.Settings.AllowUniversalAccessFromFileURLs = true;
+            webView.Settings.JavaScriptEnabled = true;
+            webView.Settings.SetRenderPriority(Android.Webkit.WebSettings.RenderPriority.High);
+            webView.ScrollbarFadingEnabled = true;
+            webView.SetWebViewClient(new PodWebViewClient());
         }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -41,5 +53,17 @@ namespace MyDevices.Androids
             }
         }
         #endregion
+
+        public class PodWebViewClient : WebViewClient
+
+        {
+            [System.Obsolete]
+            public override bool ShouldOverrideUrlLoading(WebView view, string url)
+
+            {
+                view.LoadUrl(url);
+                return true;
+            }
+        }
     }
 }

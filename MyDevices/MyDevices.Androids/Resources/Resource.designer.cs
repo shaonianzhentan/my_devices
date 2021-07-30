@@ -4088,6 +4088,9 @@ namespace MyDevices.Androids
 			// aapt resource value: 0x7F0800EB
 			public const int wrap_content = 2131230955;
 			
+			// aapt resource value: 0x7F0800EC
+			public const int wv = 2131230956;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
