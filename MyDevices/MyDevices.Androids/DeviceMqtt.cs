@@ -12,6 +12,7 @@ using Android.Provider;
 using YamlDotNet.Serialization;
 using Xamarin.Essentials;
 using Android.Media;
+using Android.Webkit;
 
 namespace MyDevices.Androids
 {
@@ -25,12 +26,14 @@ namespace MyDevices.Androids
         Dictionary<string, string> batteryTopic = null;
         Dictionary<string, string> lightSensorTopic = null;
         Dictionary<string, string> volumeSensorTopic = null;
+        WebView webView = null;
 
         public float LightSensorValue = 0;
 
-        public DeviceMqtt(MainActivity activity)
+        public DeviceMqtt(MainActivity activity, WebView webView)
         {
             this.activity = activity;
+            this.webView = webView;
             audioManager = activity.GetSystemService(Context.AudioService) as AudioManager;
 
             StartHttpServer();
@@ -47,7 +50,7 @@ namespace MyDevices.Androids
             };
             action["home_url"] = (value) =>
             {
-
+                this.webView.LoadUrl(value);
             };
             action["ha_api"] = (value) =>
             {

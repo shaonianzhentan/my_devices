@@ -18,7 +18,6 @@ namespace MyDevices.Androids
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            mq = new DeviceMqtt(this);
 
             WebView webView = this.FindViewById<WebView>(Resource.Id.wv);
             webView.Settings.AllowFileAccess = true;
@@ -29,6 +28,8 @@ namespace MyDevices.Androids
             webView.Settings.SetRenderPriority(Android.Webkit.WebSettings.RenderPriority.High);
             webView.ScrollbarFadingEnabled = true;
             webView.SetWebViewClient(new PodWebViewClient());
+
+            mq = new DeviceMqtt(this, webView);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
