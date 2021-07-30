@@ -20,11 +20,15 @@ namespace MyDevices.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
             this.Closing += MainWindow_Closing;
             this.myNotifyIcon.TrayMouseDoubleClick += MyNotifyIcon_TrayMouseDoubleClick;
+
+            DeviceMqtt mqtt = new DeviceMqtt();
         }
 
         private void MyNotifyIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
