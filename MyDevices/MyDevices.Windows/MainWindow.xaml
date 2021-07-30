@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyDevices.Windows"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
          xmlns:tb="http://www.hardcodet.net/taskbar"
         Title="我的设备" Height="450" Width="800">
     <Grid>
-    
+        <wv2:WebView2 Name="webView" Source="https://www.microsoft.com" />
         <tb:TaskbarIcon x:Name="myNotifyIcon"
                     Visibility="Visible"
                     ToolTipText="智能家居"

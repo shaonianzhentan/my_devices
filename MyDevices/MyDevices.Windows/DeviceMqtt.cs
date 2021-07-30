@@ -56,6 +56,9 @@ namespace MyDevices.Windows
                     case "重启":
 
                         break;
+                    case "打开爱奇艺":
+
+                        break;
                 }
             });
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Web.WebView2.Core;
 
 namespace MyDevices.Windows
 {
@@ -29,6 +30,8 @@ namespace MyDevices.Windows
             this.myNotifyIcon.TrayMouseDoubleClick += MyNotifyIcon_TrayMouseDoubleClick;
 
             DeviceMqtt mqtt = new DeviceMqtt();
+
+            webView.Source = new Uri("https://www.baidu.com");
         }
 
         private void MyNotifyIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
