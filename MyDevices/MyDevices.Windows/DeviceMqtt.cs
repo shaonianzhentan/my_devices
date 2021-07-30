@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.TextToSpeech;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using YamlDotNet.Serialization;
@@ -61,6 +62,21 @@ namespace MyDevices.Windows
                         break;
                 }
             });
+
+            // 相关功能
+            action.Add(ha.ip, async (value) =>
+            {
+                var yamlReader = new System.IO.StringReader(value);
+                Deserializer yamlDeserializer = new Deserializer();
+                Dictionary<string, object> dict = yamlDeserializer.Deserialize<Dictionary<string, object>>(yamlReader);
+                // 设置TTS
+                if (dict.ContainsKey("tts"))
+                {
+                    string tts = dict["tts"].ToString();
+                    await CrossTextToSpeech.Current.Speak(tts);
+                }
+            });
+
 
             ha.Connect(action, (args) =>
             {
