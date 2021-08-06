@@ -31,7 +31,8 @@ namespace MyDevices.Windows
 
             DeviceMqtt mqtt = new DeviceMqtt();
 
-            webView.Source = new Uri("https://www.baidu.com");
+            // webView.Source = new Uri("https://www.baidu.com");
+            this.Hide();
         }
 
         private void MyNotifyIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
@@ -52,6 +53,7 @@ namespace MyDevices.Windows
 
         void QuitWin_Click(object sender, RoutedEventArgs e)
         {
+            this.myNotifyIcon.Dispose();
             Environment.Exit(0);
         }
     }

@@ -1,8 +1,8 @@
-﻿using Plugin.TextToSpeech;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using YamlDotNet.Serialization;
+using System.Speech.Synthesis;
 
 namespace MyDevices.Windows
 {
@@ -64,7 +64,7 @@ namespace MyDevices.Windows
             });
 
             // 相关功能
-            action.Add(ha.ip, async (value) =>
+            action.Add(ha.ip, (value) =>
             {
                 var yamlReader = new System.IO.StringReader(value);
                 Deserializer yamlDeserializer = new Deserializer();
@@ -73,7 +73,11 @@ namespace MyDevices.Windows
                 if (dict.ContainsKey("tts"))
                 {
                     string tts = dict["tts"].ToString();
-                    await CrossTextToSpeech.Current.Speak(tts);
+                    using (SpeechSynthesizer reader = new SpeechSynthesizer())
+                    {
+                        reader.Speak(tts);
+                        reader.Dispose();
+                    }
                 }
             });
 
